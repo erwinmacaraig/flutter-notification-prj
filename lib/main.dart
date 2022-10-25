@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 
 //SCREENS
 import './screens/screens.dart';
@@ -8,6 +8,7 @@ void main() {
   runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,12 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Kinder Caring Chat',
+      title: 'Push Notifications',
       theme: ThemeData(        
         primarySwatch: Colors.blue,
       ),
       home: ChatScreen(),
     );
   }
+
+  
 }
 
