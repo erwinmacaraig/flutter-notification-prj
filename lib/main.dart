@@ -18,7 +18,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Push Notifications',
       theme: ThemeData(        
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.blue,
+          secondary: Colors.pink,
+          brightness: Brightness.dark,          
+        ),
+        buttonTheme: ButtonTheme.of(context).copyWith(
+          buttonColor: Colors.pink,
+          textTheme: ButtonTextTheme.primary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+        ),
+        // primarySwatch: Colors.blue,
+        // backgroundColor: Colors.blue,
+        // ColorScheme: 
       ),
       home: AuthScreen() //ChatScreen(),
     );
