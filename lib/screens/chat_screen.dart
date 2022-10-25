@@ -32,13 +32,9 @@ class ChatScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () async {
-            // print()
-            // await _setup();
-            // FirebaseFirestore.instance.collection('chats/ZlexVogs2L0vsi999jZL/messages').snapshots().listen((data) { 
-            //   data.docs.forEach((element) {
-            //     print(element['text']);
-            //   });
-            // });
+            FirebaseFirestore.instance.collection('chats/ZlexVogs2L0vsi999jZL/messages').add({
+              'text': 'This was added by clicking the button'
+            });
           },
         ),
         );
