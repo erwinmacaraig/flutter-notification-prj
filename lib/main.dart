@@ -28,6 +28,19 @@ class MyApp extends StatelessWidget {
           textTheme: ButtonTextTheme.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.pink,
+            shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            side: const BorderSide(color: Colors.blue, width: 2),
+            textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  wordSpacing: 2,
+                  letterSpacing: 2)
+          )
+        ),
         // primarySwatch: Colors.blue,
         // backgroundColor: Colors.blue,
         // ColorScheme: 
