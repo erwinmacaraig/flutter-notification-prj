@@ -8,9 +8,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(builder:  (context, AsyncSnapshot snapshot) {
-      if (snapshot.hasData) {
-          return Scaffold(
+    return Scaffold(
             body: StreamBuilder(
               stream: FirebaseFirestore.instance.collection('chats/ZlexVogs2L0vsi999jZL/messages').snapshots(),
               builder:(ctx, streamSnapshot){
@@ -38,18 +36,7 @@ class ChatScreen extends StatelessWidget {
           },
         ),
         );
-      } else {
-        return const Center(child: CircularProgressIndicator());
-      }
-    }, future: _setup(),);
   }
 
-  Future<bool> _setup() async {
-    // WidgetsFlutterBinding.ensureInitialized(); 
-    // make Flutter to ensure that all of the widget have been initialize before we begin our process
-    // called flutter binding
-    await Firebase.initializeApp();
-    return true;
-    
-  }
+  
 }
