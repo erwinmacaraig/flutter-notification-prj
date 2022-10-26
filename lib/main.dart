@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 //SCREENS
 import './screens/screens.dart';
@@ -50,7 +51,15 @@ class MyApp extends StatelessWidget {
               // backgroundColor: Colors.blue,
               // ColorScheme: 
             ),
-            home: AuthScreen() //ChatScreen(),
+            home: StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, userSnapshot){
+                if (userSnapshot.hasData) {
+                  return ChatScreen();
+                }
+                return AuthScreen();
+              } ,
+            )  //AuthScreen() //ChatScreen(),
           );
         } else {
           return const Center(child: CircularProgressIndicator());
