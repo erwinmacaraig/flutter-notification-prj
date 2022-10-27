@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
     // WidgetsFlutterBinding.ensureInitialized(); 
     // make Flutter to ensure that all of the widget have been initialize before we begin our process
     // called flutter binding
-    await Firebase.initializeApp();
+    await Firebase.initializeApp();    
     return true;    
   }
 }
