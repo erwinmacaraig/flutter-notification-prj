@@ -15,20 +15,44 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
 
+  
   @override
   void initState() {
-   final fbm = FirebaseMessaging.instance;
-   fbm.requestPermission(
-    alert: true,
-    announcement: true,
-    badge: true,
-    carPlay: false,
-    criticalAlert: true,
-    provisional: false,
-    sound: true,
-   );
-   
     super.initState();
+   _init();
+   FirebaseMessaging.onMessage.listen((RemoteMessage message) { 
+    print('Got a message whilst in the foreground! ${DateTime.now()}');
+    print('Message data: ${message.data}');
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+   });
+  }
+
+  void _init() async{
+    final fbm = FirebaseMessaging.instance;
+  //  fbm.requestPermission(
+  //   alert: true,
+  //   announcement: true,
+  //   badge: true,
+  //   carPlay: false,
+  //   criticalAlert: true,
+  //   provisional: false,
+  //   sound: true,
+    
+  //  );
+    NotificationSettings settings = await fbm.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    print('User granted permission: ${settings.authorizationStatus}');
+
+    fbm.subscribeToTopic('chat');
   }
   @override
   Widget build(BuildContext context) {
@@ -38,7 +62,8 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
           DropdownButton(
-            icon: Icon(Icons.more_vert, color: Colors.pink), //Theme.of(context).primaryIconTheme.color
+            underline: Container(),
+            icon: const Icon(Icons.more_vert, color: Colors.pink), //Theme.of(context).primaryIconTheme.color
             items: [
               DropdownMenuItem(
                 value: 'logout',

@@ -7,7 +7,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 //SCREENS
 import './screens/screens.dart';
 
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+ await Firebase.initializeApp();
+  print("Handling a background message: ${message.messageId}");
+}
+
 void main() {
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
 }
 
@@ -55,8 +64,11 @@ class MyApp extends StatelessWidget {
             home: StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, userSnapshot){
+                if (userSnapshot.connectionState == ConnectionState.waiting) {
+                  return const SplashScreen();
+                }
                 if (userSnapshot.hasData) {
-                  return ChatScreen();
+                  return const ChatScreen();
                 }
                 return AuthScreen();
               } ,
