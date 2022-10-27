@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,21 @@ class AuthScreen extends StatefulWidget {
 } 
 
 class _AuthScreenState extends State<AuthScreen>{
+
+  @override
+  void initState(){
+    init();
+    super.initState();
+  }
+
+  init() async {
+    String deviceToken = await getDeviceToken();
+    print("############################### DEVICE TOKEN #################");
+    print(deviceToken);
+    print("");
+  }
+  
+
 
   final _auth = FirebaseAuth.instance;
   var _isLoading = false;
@@ -76,5 +92,11 @@ class _AuthScreenState extends State<AuthScreen>{
       backgroundColor: Theme.of(context).primaryColor,
       body: AuthForm(_submitAuthForm, _isLoading),
     );
+  }
+
+  Future getDeviceToken() async{
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(fcmToken);
+    return (fcmToken == null) ? "" : fcmToken;
   }
 }
